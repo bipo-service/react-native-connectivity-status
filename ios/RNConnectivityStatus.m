@@ -44,13 +44,13 @@ RCT_EXPORT_MODULE()
       locationManager.delegate = self;
     }
     
-    if(!bluetoothManager) {
-      bluetoothManager = [[CBCentralManager alloc] initWithDelegate:self
-                                                              queue:dispatch_get_main_queue()
-                                                            options:@{
-                                                                      CBCentralManagerOptionShowPowerAlertKey: @0
-                                                                  }];
-    }
+    // if(!bluetoothManager) {
+    //   bluetoothManager = [[CBCentralManager alloc] initWithDelegate:self
+    //                                                           queue:dispatch_get_main_queue()
+    //                                                         options:@{
+    //                                                                   CBCentralManagerOptionShowPowerAlertKey: @0
+    //                                                               }];
+    // }
   }
   
   return self;
@@ -83,9 +83,9 @@ RCT_EXPORT_MODULE()
   [self sendActiveState:CLLocationManager.locationServicesEnabled
                 forType:@"location"];
 
-  if (bluetoothManager) {
-    [self centralManagerDidUpdateState:bluetoothManager];
-  }
+  // if (bluetoothManager) {
+  //   [self centralManagerDidUpdateState:bluetoothManager];
+  // }
 }
 
 // Will be called when this module's last listener is removed, or on dealloc.
@@ -119,17 +119,17 @@ RCT_EXPORT_MODULE()
 RCT_EXPORT_METHOD(isBluetoothEnabled:(RCTPromiseResolveBlock) resolve
                             rejecter:(RCTPromiseRejectBlock) reject)
 {
-    BOOL btIsActive = bluetoothManager && [self isBluetoothActiveState:bluetoothManager.state];
-    resolve(@(btIsActive));
+    // BOOL btIsActive = bluetoothManager && [self isBluetoothActiveState:bluetoothManager.state];
+    resolve(false);
 }
 
 // MARK: CBCentralManager Delegate
 
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central {
-    BOOL centralBtIsActive = central && [self isBluetoothActiveState:central.state];
+    // BOOL centralBtIsActive = central && [self isBluetoothActiveState:central.state];
   
-    [self sendActiveState:centralBtIsActive
-                forType:@"bluetooth"];
+    // [self sendActiveState:centralBtIsActive
+    //             forType:@"bluetooth"];
 }
 
 // MARK: Location Permissions
